@@ -2,6 +2,12 @@
 # -------------------------------------------------------------------
 # Aliases
 # -------------------------------------------------------------------
+
+
+# M1/M2/M3/M4 Mac
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
+
+
 alias vi="nvim"
 # HomeBrew Clean Up
 alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
