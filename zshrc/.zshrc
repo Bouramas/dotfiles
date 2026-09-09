@@ -3,9 +3,16 @@
 # Aliases
 # -------------------------------------------------------------------
 
+export COLORTERM="truecolor"
+export TERM="xterm-256color"
 
 # M1/M2/M3/M4 Mac
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$GOPATH/bin
+export PATH="$HOME/.tmuxifier/bin:$PATH"
+export PATH=$PATH:/System/Volumes/Data/Users/ybouramas/Code/ssm_connect
+
 
 
 alias vi="nvim"
@@ -20,7 +27,7 @@ source ~/Code/fzf-tab/fzf-tab.plugin.zsh
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS:-}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
@@ -101,6 +108,19 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Add startship as the prompt
 eval "$(starship init zsh)"
 eval "$(tmuxifier init -)"
-autoload -Uz compinit && compinit
 
 eval "$(zoxide init --cmd cd zsh)"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/ybouramas/.antigravity/antigravity/bin:$PATH"
+
+# Colima fix? 
+export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
+
+
+# Mise 
+eval "$(mise activate zsh)"
+
+
+source "$HOME/.cargo/env"

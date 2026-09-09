@@ -1,16 +1,22 @@
+-- LazyVim's newer default is blink.cmp; the user asked for nvim-cmp
+-- explicitly, so blink is disabled to avoid two completion engines fighting
+-- over insert-mode mappings.
 return {
-  {
-    "hrsh7th/cmp-nvim-lsp"
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    dependencies = {
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
-    },
-  },
+  { "saghen/blink.cmp", enabled = false },
   {
     "hrsh7th/nvim-cmp",
+    -- cmp_luasnip's after/plugin does require("cmp"), so it (and LuaSnip)
+    -- must load in the same lazy.nvim batch as nvim-cmp, not standalone,
+    -- or it errors trying to require a not-yet-loaded plugin.
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "saadparwaiz1/cmp_luasnip",
+      {
+        "L3MON4D3/LuaSnip",
+        dependencies = { "rafamadriz/friendly-snippets" },
+      },
+    },
     config = function()
       local cmp = require("cmp")
       require("luasnip.loaders.from_vscode").lazy_load()
@@ -34,7 +40,7 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" }, -- For luasnip users.
+          { name = "luasnip" },
         }, {
           { name = "buffer" },
         }),
